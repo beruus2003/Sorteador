@@ -33,6 +33,7 @@ function SorteadorDeTimes() {
     const [novoNivel, setNovoNivel] = useState(1); 
     const [tamanhoTime, setTamanhoTime] = useState(5); 
     const [timesSorteados, setTimesSorteados] = useState(null);
+    const [jogadoresReserva, setJogadoresReserva] = useState([]);
     const [nomesTimes, setNomesTimes] = useState({});
     
     // ESTADOS DE AUTENTICAÇÃO
@@ -338,13 +339,17 @@ function SorteadorDeTimes() {
         if (jogadoresAtivos < tamanhoTime) {
             alert(`Você precisa de pelo menos ${tamanhoTime} jogadores PRESENTES para formar 1 time.`);
             setTimesSorteados(null);
+            setJogadoresReserva([]);
             return;
         }
 
         // 1. CÓPIA E ORDENAÇÃO: Ordena do melhor para o pior (apenas presentes)
         const jogadoresOrdenados = [...jogadoresPresentes]
-            .sort((a, b) => b.nivel - a.nivel)
-            .slice(0, jogadoresNecessarios); 
+            .sort((a, b) => b.nivel - a.nivel);
+        
+        // Separa os jogadores que vão jogar dos que ficam de reserva
+        const jogadoresSorteados = jogadoresOrdenados.slice(0, jogadoresNecessarios);
+        const reservas = jogadoresOrdenados.slice(jogadoresNecessarios);
 
         // Inicializa a estrutura de times
         const times = Array(numTimes).fill(0).map((_, i) => ({
@@ -357,7 +362,7 @@ function SorteadorDeTimes() {
         let direcao = 1; 
         let indiceTime = 0;
 
-        jogadoresOrdenados.forEach((jogador) => {
+        jogadoresSorteados.forEach((jogador) => {
             times[indiceTime].jogadores.push(jogador);
             times[indiceTime].nivelTotal += jogador.nivel;
 
@@ -374,6 +379,7 @@ function SorteadorDeTimes() {
         });
 
         setTimesSorteados(times);
+        setJogadoresReserva(reservas);
     };
 
     const renderStars = (nivel, onClick = null, editable = true) => {
@@ -398,12 +404,20 @@ function SorteadorDeTimes() {
         
         let texto = '';
         timesSorteados.forEach((time, index) => {
-            texto += `${time.nome}\n`;
+            texto += `*${time.nome}*\n`;
             time.jogadores.forEach(j => {
                 texto += `${j.nome}\n`;
             });
             if (index < timesSorteados.length - 1) texto += '\n';
         });
+        
+        // Adiciona os jogadores reserva se houver
+        if (jogadoresReserva.length > 0) {
+            texto += '\n*Reserva*\n';
+            jogadoresReserva.forEach(j => {
+                texto += `${j.nome}\n`;
+            });
+        }
         
         navigator.clipboard.writeText(texto).then(() => {
             alert('Resultado copiado!');
@@ -611,6 +625,24 @@ function SorteadorDeTimes() {
                             </ul>
                         </div>
                     ))}
+                    
+                    {/* SEÇÃO DE RESERVAS */}
+                    {jogadoresReserva.length > 0 && (
+                        <div className="team-result">
+                            <h3 className="team-name team-reserva">
+                                Reserva
+                            </h3>
+                            <ul>
+                                {jogadoresReserva.map(j => (
+                                    <li key={j.id}>
+                                        <span className="player-name-result">{j.nome}</span>
+                                        {renderStars(j.nivel, null, false)}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    
                     <p className="footer-note">* Times balanceados pelo Algoritmo da Serpente.</p>
                 </div>
             )}
