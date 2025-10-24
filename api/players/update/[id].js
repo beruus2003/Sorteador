@@ -2,7 +2,7 @@ import pool from '../../db.js';
 import { requireAuth } from '../../auth-middleware.js';
 
 async function handler(req, res) {
-  const { id } = req.params;
+  const { id } = req.query;
 
   if (req.method === 'PATCH') {
     try {
