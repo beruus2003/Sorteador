@@ -1,0 +1,132 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #555;
+  margin-top: 25px;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+/* Campos de entrada e botões */
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-group input, .input-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+.input-group button {
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Lista de Jogadores */
+.player-list {
+  list-style: none;
+  padding: 0;
+}
+
+.player-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed #ddd;
+}
+
+.level-control input {
+  width: 40px;
+  text-align: center;
+}
+
+.remove-btn {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Botão de Sortear */
+.sort-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1em;
+  background-color: #28a745; /* Verde */
+  margin-top: 15px;
+}
+
+.sort-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.warning {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Resultado do Sorteio */
+.result-box {
+  margin-top: 30px;
+  border: 2px solid #007bff;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #e9f7ff;
+}
+
+.team-name {
+  padding: 5px;
+  border-radius: 4px;
+  color: #333;
+}
+
+.team-1 {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.team-2 {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.team-result ul {
+  list-style-type: disc;
+  padding-left: 30px;
+}
