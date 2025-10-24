@@ -439,7 +439,7 @@ function SorteadorDeTimes() {
                 )}
             </div>
 
-            <h1>Sorteador Inteligente de Pelada</h1>
+            <h1>Sorteador Barroso 2</h1>
             <hr />
 
             {/* MODAL DE LOGIN */}
