@@ -121,6 +121,14 @@ function SorteadorDeTimes() {
         
         try {
             const response = await fetchWithAuth(`${API_BASE}/players/${usuario.userId}`);
+            
+            // Verifica se a resposta foi bem-sucedida
+            if (!response.ok) {
+                console.error('Erro na resposta da API:', response.status, response.statusText);
+                alert(`Erro ao carregar jogadores: ${response.status} ${response.statusText}`);
+                return;
+            }
+            
             const data = await response.json();
             
             if (data.success) {
@@ -133,9 +141,14 @@ function SorteadorDeTimes() {
                     fromDB: true
                 }));
                 setJogadores(jogadoresBanco);
+                console.log(`✅ ${jogadoresBanco.length} jogadores carregados com sucesso`);
+            } else {
+                console.error('API retornou success: false', data);
+                alert('Erro ao carregar jogadores: ' + (data.message || 'Erro desconhecido'));
             }
         } catch (error) {
             console.error('Erro ao carregar jogadores:', error);
+            alert('Erro ao conectar com o servidor para carregar jogadores. Verifique sua conexão.');
         }
     };
 
