@@ -2,7 +2,7 @@ import pool from '../db.js';
 import { requireAuth } from '../auth-middleware.js';
 
 async function handler(req, res) {
-  const { userId } = req.params;
+  const { userId } = req.query;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
