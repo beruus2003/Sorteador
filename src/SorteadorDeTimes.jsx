@@ -343,9 +343,12 @@ function SorteadorDeTimes() {
             return;
         }
 
-        // 1. CÓPIA E ORDENAÇÃO: Ordena do melhor para o pior (apenas presentes)
-        const jogadoresOrdenados = [...jogadoresPresentes]
-            .sort((a, b) => b.nivel - a.nivel);
+        // 1. EMBARALHAR E ORDENAR: Primeiro embaralha aleatoriamente, depois ordena por nível
+        const jogadoresEmbaralhados = [...jogadoresPresentes]
+            .sort(() => Math.random() - 0.5); // Embaralha aleatoriamente
+        
+        const jogadoresOrdenados = jogadoresEmbaralhados
+            .sort((a, b) => b.nivel - a.nivel); // Ordena do melhor para o pior
         
         // Separa os jogadores que vão jogar dos que ficam de reserva
         const jogadoresSorteados = jogadoresOrdenados.slice(0, jogadoresNecessarios);
@@ -439,7 +442,7 @@ function SorteadorDeTimes() {
                 )}
             </div>
 
-            <h1>Sorteador Barroso 2</h1>
+            <h1>Sorteador Inteligente de Pelada</h1>
             <hr />
 
             {/* MODAL DE LOGIN */}
